@@ -1,0 +1,98 @@
+.main {
+  display: grid;
+  grid-template-columns: 5% 95%;
+  align-items: center;
+  padding: 0.2rem;
+ flex-direction: column;
+
+  padding-bottom: 0.3rem;
+  gap:1rem;
+  .container{
+    display: flex;
+ 
+    align-items: center;
+    justify-content: center;
+    gap: 100rem;
+    .emoji{
+      position: absolute;
+   margin-left: 15px;
+      svg{
+        font-size: 2rem;
+     
+        cursor: pointer;
+      }
+    }
+    .emojibox{
+      position: absolute;
+      top:-500px;
+    
+  
+  }
+   
+  }
+  form{
+    width:90%;
+    border-radius: 2rem;
+   height: 1px;
+   background-color: rgb(237, 237, 237);
+    display: flex;
+    border: none;
+    padding: 1.5rem 0rem;
+    align-items: center;
+   flex-direction: row;
+   margin-right: 2px;
+ min-width: 20%;
+    input {
+      width: 100%;
+      height: 60%;
+      min-width: 20%;
+      margin-right: 2px;
+      background-color: transparent;
+      color: black;
+      border: none;
+    
+      padding-left: 1rem;
+      font-size: 1.2rem;
+
+      &::selection {
+        background-color: #9a86f3;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+      .btn4{
+        padding: 1rem 1.5rem 1rem 3rem;
+      border-radius: 2rem;
+      display: flex;
+      justify-content: center;
+     
+      
+      border: none;
+     
+      .btn5{
+        margin-right: 15px;
+        
+      }
+}
+
+}
+}
+
+
+
+/* svg{
+    font-size: 1.5rem;
+    color: #ffff00c8;
+    background-color: aqua;
+    cursor: pointer;
+  } */
+  input[type="file"] {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    cursor: pointer;
+}
+.file-upload-container {
+  margin-bottom: 20px; /* Adjust as needed */
+}

@@ -1,0 +1,15 @@
+.slidebar{
+    display: none;
+   
+    margin-top: 15px;
+  }
+  @media screen and (max-width: 750px) {
+    .slidebar{
+      display: block;
+    }
+  
+  }
+  .head{
+    background-color: aqua;
+   
+  }
