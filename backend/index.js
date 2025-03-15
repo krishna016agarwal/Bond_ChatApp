@@ -13,6 +13,8 @@ const router = require("./routes/user");
 const msgrouter = require("./routes/messages");
 
 const socket = require("socket.io");
+
+
 const path= require("path")
 const _dirname=path.resolve();
 
@@ -64,15 +66,15 @@ app.use((req, res, next) => {
 });
 
 
-app.use(express.static(path.join(_dirname,"/client/dist")))
-app.get("*",(req,res)=>{
-  res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
+app.use(express.static(path.join(_dirname,"/frontend/dist")))
+app.get('*',(req,res)=>{
+  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
 })
 const server=app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-
+            
 const io = socket(server, {
   cors: {
     origin: "http://localhost:5173",

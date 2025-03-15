@@ -33,11 +33,7 @@ module.exports.update = async (req, res, next) => {
 
 
    
-    // const result = await User.findOneAndUpdate(
-    //     { _id: id },
-    //     { $set: { username, email, password } },
-
-    //   );
+   
     delete result.password;
   
     
