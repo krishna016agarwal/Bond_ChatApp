@@ -2,7 +2,7 @@ import React, { useEffect, useState,useRef } from "react";
 import style from "./chatcontainer.module.css";
 
 import Chatinput from "./chatinput";
-import Message from "./message";
+
 import axios from "axios";
 import {v4 as uuid4} from "uuid"
 

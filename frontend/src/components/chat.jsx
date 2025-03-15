@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./chat.module.css";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Contacts } from "./contacts";
 import { Home } from "./home";

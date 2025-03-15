@@ -1,13 +1,13 @@
 import React from "react";
 import style from "./avatar.module.css";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import logo from "../assets/logo.png";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { use } from "react";
+
 import { Buffer } from "buffer";
 
 export const Avatar = () => {

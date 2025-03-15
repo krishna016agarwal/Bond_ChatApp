@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import style from "./contacts.module.css";
-import { IoSettingsOutline } from "react-icons/io5";
+
 export const Contacts = ({ contacts, currentUser, changeChat,setting }) => {
   const [currentUserName, setcurrentUserName] = useState(undefined);
   const [currentUserImage, setcurrentUserImage] = useState(undefined);
