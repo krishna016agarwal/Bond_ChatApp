@@ -46,7 +46,9 @@ navigate("/")
     if (handleValidation()) {
       const { password, username } = state;
 
-      const { data } = await axios.post("http://localhost:8000/api/login", {
+      const { data } = await axios.post(
+        `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/login` : `/api/login` }`
+       , {
         password,
 
         username,

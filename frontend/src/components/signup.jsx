@@ -52,7 +52,11 @@ export const Signup = () => {
     if (handleValidation()) {
       const { password, email, username } = state;
 
-      const { data } = await axios.post("http://localhost:8000/api/signup", {
+      const { data } = await axios.post(
+        `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/signup` : `/api/signup` }`
+        ,
+        
+    {
         password,
         email,
         username,

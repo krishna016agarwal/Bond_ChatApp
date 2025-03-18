@@ -23,7 +23,8 @@ export const Chat = () => {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
         const data = await axios.get(
-          `http://localhost:8000/api/allUsers/${currentUser._id}`
+           `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/allUsers/${currentUser._id}` : `/api/allUsers/${currentUser._id}` }`
+         
         );
         setContacts(data.data);
       } else {

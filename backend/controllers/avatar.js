@@ -10,6 +10,6 @@ try {
     })
     return res.json({isSet:user.isAvatarImageSet,image:user.avatarImage})
 } catch (error) {
-    next(error)
+    console.log(error)
 }
 }

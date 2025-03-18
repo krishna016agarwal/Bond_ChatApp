@@ -6,6 +6,6 @@ module.exports.getAllUsers=async(req,res)=>{
 
 return res.json(users)
    } catch (error) {
-    next(error)
+    console.log(error)
    } 
 }

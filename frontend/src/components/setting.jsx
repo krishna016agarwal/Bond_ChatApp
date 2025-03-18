@@ -58,7 +58,11 @@ const Setting = ({ currentUser }) => {
  
    
      
-        const { data } =  await axios.post(`http://localhost:8000/api/update/${currentUser._id}`, {
+        const { data } =  await axios.post(
+          `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/update/${currentUser._id}` : `/api/update/${currentUser._id}` }`
+          ,
+          
+           {
           password,
           email,
           username,

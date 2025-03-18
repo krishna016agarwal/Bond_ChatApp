@@ -74,7 +74,7 @@ const server=app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-            
+global.onlineUsers = new Map();       
 const io = socket(server, {
   cors: {
     origin: "http://localhost:5173",
@@ -83,18 +83,33 @@ const io = socket(server, {
   },
 });
 
-global.onlineUsers = new Map();
+
 
 io.on("connection", (socket) => {
   global.chatSocket = socket;
+  
+  
   socket.on("add-user", (userId) => {
-    onlineUsers.set(userId, socket.id);
+    
+    
+    onlineUsers.set( userId,socket.id,);
+  
+   
+    
   });
   socket.on("send-msg", (data) => {
+ 
+ 
   
     const sendUserSocket = onlineUsers.get(data.to);
+    
+    
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("receive-msg", data.msg);
+     
+      
+      socket.to(sendUserSocket).emit("receive-msg", data);
+    
+      
     }
   });
 });

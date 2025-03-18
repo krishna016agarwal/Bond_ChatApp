@@ -22,7 +22,8 @@ const ChatContainer = ({ currentChat, currentUser,socket }) => {
     const Msg=async()=>{
     if(currentChat){
     const response = await axios.post(
-      "http://localhost:8000/api/messages/getmsg",
+      `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/messages/getmsg` : `/api/messages/getmsg` }`,
+    
       {
         from: currentUser._id,
         to: currentChat._id,
@@ -38,7 +39,8 @@ Msg();
 
   const handleSendMsg = async (message) => {
     const { data } = await axios.post(
-      "http://localhost:8000/api/messages/addmsg",
+       `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/messages/addmsg` : `/api/messages/addmsg` }`,
+     
       {
         from: currentUser._id,
         to: currentChat._id,
@@ -67,6 +69,11 @@ setArrivalMessage({fromSelf:false,message:msg,time:data.time})
       })
     }
   },[]);
+
+
+
+
+
 useEffect(()=>{
   arrivalMessage && setMessages((prev)=>{[...prev,arrivalMessage]})
 },[arrivalMessage])
