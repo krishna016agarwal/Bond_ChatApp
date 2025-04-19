@@ -6,6 +6,6 @@ With features like user authentication 🔐, message persistence 💾, and real-
 
 <br>
 <br>
-Check out here - <a href="https://bond-chatapp.onrender.com/">Website</a>
+Check out here - <a href="https://bond-chatapp.onrender.com/" target="/blanck">Website</a>
 <br>
 <br>
