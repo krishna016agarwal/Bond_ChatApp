@@ -32,12 +32,11 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://bond-chatapp.onrender.com"],
+    origin: "http://localhost:5173",
     methods: "GET,POST",
     credentials: true,
   })
 );
-
 
 app.use(express.json());
 
@@ -78,7 +77,7 @@ const server=app.listen(port, () => {
 global.onlineUsers = new Map();       
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://bond-chatapp.onrender.com"],
     methods: ["GET", "POST"],
     credentials: true,
   },
