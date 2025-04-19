@@ -1,62 +1,32 @@
-import { useState,useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useState, useEffect } from "react";
+
 import axios from "axios";
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import Offcanvas from "react-bootstrap/Offcanvas";
 import { IoMenu } from "react-icons/io5";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
-import style from "./slidebar.module.css"
-
+import style from "./slidebar.module.css";
 
 import { Contacts } from "./contacts";
 
-
-
-
-
-
-
-
-
-
-
-function Slidebar({setCurrentChat,currentChat}) {
-
-
-
-
+function Slidebar({ setCurrentChat, currentChat }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-
-
-
-
-
-
-
-
-  
   const [contacts, setContacts] = useState([]);
   const [isLoadded, setIsLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
-
-
-
-
-
-
 
   async function curr() {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
         const data = await axios.get(
-          `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/allUsers/${currentUser._id}` : `/api/allUsers/${currentUser._id}` }`
-          
-
-         
+          `${
+            import.meta.env.MODE === "development"
+              ? `http://localhost:8000/api/allUsers/${currentUser._id}`
+              : `/api/allUsers/${currentUser._id}`
+          }`
         );
         setContacts(data.data);
       } else {
@@ -64,7 +34,6 @@ function Slidebar({setCurrentChat,currentChat}) {
       }
     }
   }
-
 
   useEffect(() => {
     curr();
@@ -87,56 +56,30 @@ function Slidebar({setCurrentChat,currentChat}) {
   }, []);
 
   const handleChatChange = (chat) => {
-    
-    
     setCurrentChat(chat);
-  
-    handleClose()
+
+    handleClose();
   };
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <>
-      
-      <IoMenu  onClick={handleShow}  className={style.slidebar} cursor={"pointer"} size={30} />
-    
+      <IoMenu
+        onClick={handleShow}
+        className={style.slidebar}
+        cursor={"pointer"}
+        size={30}
+      />
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>   </Offcanvas.Header>
-        <Contacts 
-             contacts={contacts}
-             currentUser={currentUser}
-             changeChat={handleChatChange}
-        
-           ></Contacts>
-      
-        
+      <Offcanvas show={show} onHide={handleClose} className={style.main}>
+        <Offcanvas.Header closeButton className={style.header2}> </Offcanvas.Header>
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChatChange}
+        ></Contacts>
       </Offcanvas>
     </>
   );
-
-
-
-
-
 }
 
 export default Slidebar;
-
-

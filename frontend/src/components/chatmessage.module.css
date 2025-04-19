@@ -96,3 +96,10 @@
 .file-upload-container {
   margin-bottom: 20px; /* Adjust as needed */
 }
+
+@media screen and (max-width:400px) {
+  .emojibox{
+    width: 300px !important;
+    height: 400px !important;
+  }
+}

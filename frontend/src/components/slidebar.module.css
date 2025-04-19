@@ -13,3 +13,12 @@
     background-color: aqua;
    
   }
+  @media screen and (max-width: 400px) {
+    .main{
+     .header2{
+      
+      height: 10px;
+     }
+    }
+  
+  }
