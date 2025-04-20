@@ -21,21 +21,21 @@ export const Avatar = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(()=>{
-  //   const a=JSON.parse(localStorage.getItem("user"))
+  useEffect(()=>{
+    const a=JSON.parse(localStorage.getItem("user"))
 
  
-  //   if(a.isAvatarImageSet){
+    if(a.isAvatarImageSet){
 
-  //    navigate("/")
-  //   }
-  // },[])
+     navigate("/")
+    }
+  },[])
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem("user")) {
-  //     navigate("/login");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!localStorage.getItem("user")) {
+      navigate("/login");
+    }
+  }, []);
 
 
   const toastOptions = {
