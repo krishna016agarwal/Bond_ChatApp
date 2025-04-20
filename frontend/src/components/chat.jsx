@@ -1,247 +1,138 @@
-// import React from "react";
-// import style from "./chat.module.css";
-// import { useNavigate } from "react-router-dom";
-// import { useState, useEffect, useRef } from "react";
-// import { Contacts } from "./contacts";
-// import { Home } from "./home";
-// import Logout from "./logout";
-// import axios from "axios";
-// import ChatContainer from "./chatcontainer";
-// import { io } from "socket.io-client";
-// import Setting from "./setting";
-
-// import { IoSettingsOutline } from "react-icons/io5";
-// import Slidebar from "./slidebar";
-// export const Chat = () => {
-//   const socket = useRef();
-
-//   const [currentChat, setCurrentChat] = useState(undefined);
-//   const [contacts, setContacts] = useState([]);
-//   const [isLoadded, setIsLoaded] = useState(false);
-//   const [currentUser, setCurrentUser] = useState(undefined);
-//   async function curr() {
-//     if (currentUser) {
-//       if (currentUser.isAvatarImageSet) {
-//         const data = await axios.get(
-//            `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/allUsers/${currentUser._id}` : `/api/allUsers/${currentUser._id}` }`
-         
-//         );
-//         setContacts(data.data);
-//       } else {
-//         navigate("/setAvatar");
-//       }
-//     }
-//   }
-//   useEffect(() => {
-//     if (currentUser) {
-//       socket.current = io("http://localhost:8000");
-//       socket.current.emit("add-user", currentUser._id);
-//     }
-//   }, [currentUser]);
-
-//   useEffect(() => {
-//     curr();
-//   }, [currentUser]);
-
-//   const navigate = useNavigate();
-
-//   async function fun() {
-//     if (!localStorage.getItem("user")) {
-//       navigate("/login");
-//     } else {
-//       setCurrentUser(await JSON.parse(localStorage.getItem("user")));
-
-//       setIsLoaded(true);
-//     }
-//   }
-
-//   useEffect(() => {
-//     fun();
-//   }, []);
-
-//   const handleChatChange = (chat) => {
-//     setCurrentChat(chat);
-//     setSetting(false);
-//   };
-
-//   const [setting, setSetting] = useState(false);
-//   let button = false;
-//   var handleSetting = () => {
-//     if (button === false) {
-//       setSetting(true);
-//       button = true;
-//     } else if (button === true) {
-//       setSetting(false);
-//       button = false;
-//     }
-//   };
-
-//   return (
-//     <>
-//       <div className={style.main}>
-//         <div className={style.container}>
-//           <div className={style.line}>
-//             <Slidebar currentChat={currentChat} setCurrentChat={setCurrentChat}></Slidebar>
-//             <div className={style.cont}>
-//             <Logout></Logout>
-//             <IoSettingsOutline
-//               className={style.setting}
-//               onClick={handleSetting}
-//             />
-//             </div>
-           
-//           </div>
-
-//           <Contacts
-//             contacts={contacts}
-//             currentUser={currentUser}
-//             changeChat={handleChatChange}
-//             setting={setting}
-//           ></Contacts>
-
-         
-
-
-//           {setting === true ? (
-//             <Setting currentUser={currentUser}></Setting>
-//           ) : currentChat === undefined ? (
-           
-//             <Home currentUser={currentUser}></Home>
-//           ) : (
-//             <ChatContainer
-//               currentChat={currentChat}
-//               currentUser={currentUser}
-//               socket={socket}
-//             ></ChatContainer>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-
-
-
-
-
-
-
-
-import React from "react";
-import style from "./chat.module.css";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { io } from "socket.io-client";
+import { IoSettingsOutline } from "react-icons/io5";
+
+import style from "./chat.module.css";
 import { Contacts } from "./contacts";
 import { Home } from "./home";
 import Logout from "./logout";
-import axios from "axios";
 import ChatContainer from "./chatcontainer";
-import { io } from "socket.io-client";
 import Setting from "./setting";
-import { IoSettingsOutline } from "react-icons/io5";
 import Slidebar from "./slidebar";
 
 export const Chat = () => {
   const socket = useRef();
-  const [currentChat, setCurrentChat] = useState(undefined);
-  const [contacts, setContacts] = useState([]);
-  const [isLoadded, setIsLoaded] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const [setting, setSetting] = useState(false);
-
   const navigate = useNavigate();
 
-  // Function to fetch contacts
-  const fetchContacts = async () => {
-    if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
-        try {
-          const data = await axios.get(
-            `${import.meta.env.MODE === "development" ? `http://localhost:8000/api/allUsers/${currentUser._id}` : `/api/allUsers/${currentUser._id}`}`
-          );
-          setContacts(data.data);
-        } catch (error) {
-          console.error("Error fetching contacts:", error);
-        }
-      } else {
-        navigate("/setAvatar");
-      }
-    }
-  };
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [contacts, setContacts] = useState([]);
+  const [currentChat, setCurrentChat] = useState(undefined);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [setting, setSetting] = useState(false);
 
-  // Socket setup after user is set
+  // Check user in localStorage
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = localStorage.getItem("user");
+      if (!user) {
+        navigate("/login");
+      } else {
+        setCurrentUser(JSON.parse(user));
+        setIsLoaded(true);
+      }
+    };
+    checkUser();
+  }, []);
+
+  // Wake backend on mount (Render cold start fix)
+  useEffect(() => {
+    const wakeBackend = async () => {
+      const backendURL =
+        import.meta.env.MODE === "development"
+          ? "http://localhost:8000"
+          : "https://bond-chatapp-backend.onrender.com";
+      try {
+        await axios.get(backendURL);
+      } catch (err) {
+        console.warn("Backend wake-up failed:", err);
+      }
+    };
+    wakeBackend();
+  }, []);
+
+  // Setup socket when currentUser is ready
   useEffect(() => {
     if (currentUser) {
       const socketURL =
         import.meta.env.MODE === "development"
           ? "http://localhost:8000"
-          : "https://bond-chatapp-backend.onrender.com"; // For production URL
-      socket.current = io(socketURL);
+          : "https://bond-chatapp-backend.onrender.com";
+
+      socket.current = io(socketURL, {
+        transports: ["websocket", "polling"],
+        withCredentials: true,
+      });
+
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
 
-  // Fetch contacts on currentUser change
+  // Fetch contacts when currentUser is set
   useEffect(() => {
+    const fetchContacts = async () => {
+      if (currentUser) {
+        if (currentUser.isAvatarImageSet) {
+          try {
+            const apiUrl =
+              import.meta.env.MODE === "development"
+                ? `http://localhost:8000/api/allUsers/${currentUser._id}`
+                : `https://bond-chatapp-backend.onrender.com/api/allUsers/${currentUser._id}`;
+            const { data } = await axios.get(apiUrl);
+            setContacts(data);
+          } catch (error) {
+            console.error("Error fetching contacts:", error);
+          }
+        } else {
+          navigate("/setAvatar");
+        }
+      }
+    };
     fetchContacts();
   }, [currentUser]);
 
-  // Check localStorage for user and set state
-  const checkUser = async () => {
-    if (!localStorage.getItem("user")) {
-      navigate("/login");
-    } else {
-      setCurrentUser(await JSON.parse(localStorage.getItem("user")));
-      setIsLoaded(true);
-    }
-  };
-
-  useEffect(() => {
-    checkUser();
-  }, []);
-
-  // Handle chat change
+  // Handle chat switch
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
-    setSetting(false); // Hide settings when a chat is selected
+    setSetting(false);
   };
 
-  // Toggle setting visibility
-  let button = false;
+  // Toggle settings panel
   const handleSetting = () => {
-    button = !button;
-    setSetting(button);
+    setSetting((prev) => !prev);
   };
 
   return (
-    <>
-      <div className={style.main}>
-        <div className={style.container}>
-          <div className={style.line}>
-            <Slidebar currentChat={currentChat} setCurrentChat={setCurrentChat}></Slidebar>
-            <div className={style.cont}>
-              <Logout></Logout>
-              <IoSettingsOutline className={style.setting} onClick={handleSetting} />
-            </div>
+    <div className={style.main}>
+      <div className={style.container}>
+        <div className={style.line}>
+          <Slidebar currentChat={currentChat} setCurrentChat={setCurrentChat} />
+          <div className={style.cont}>
+            <Logout />
+            <IoSettingsOutline className={style.setting} onClick={handleSetting} />
           </div>
-
-          <Contacts
-            contacts={contacts}
-            currentUser={currentUser}
-            changeChat={handleChatChange}
-            setting={setting}
-          ></Contacts>
-
-          {setting ? (
-            <Setting currentUser={currentUser}></Setting>
-          ) : currentChat ? (
-            <ChatContainer currentChat={currentChat} currentUser={currentUser} socket={socket}></ChatContainer>
-          ) : (
-            <Home currentUser={currentUser}></Home>
-          )}
         </div>
+
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChatChange}
+          setting={setting}
+        />
+
+        {setting ? (
+          <Setting currentUser={currentUser} />
+        ) : currentChat ? (
+          <ChatContainer
+            currentChat={currentChat}
+            currentUser={currentUser}
+            socket={socket}
+          />
+        ) : (
+          <Home currentUser={currentUser} />
+        )}
       </div>
-    </>
+    </div>
   );
 };
