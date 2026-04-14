@@ -53,7 +53,7 @@ export const Signup = () => {
       const { password, email, username } = state;
 
       const { data } = await axios.post(
-        `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/signup` : `/api/signup` }`
+        `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/signup` : meta.env.BACKEND_URL+"/api/signup" }`
         ,
         
     {
