@@ -33,7 +33,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(
   cors({
     origin:["http://localhost:5173", process.env.FRONTEND_URL],
-    methods: "GET,POST",
+    methods: ["GET","POST"],
     credentials: true,
   })
 );
@@ -58,18 +58,11 @@ app.use("/api/messages", msgrouter);
 
 
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins (or specify allowed origins)
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
 
 
-app.use(express.static(path.join(_dirname,"/frontend/dist")))
-app.get('*',(req,res)=>{
-  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
-})
+
+
+
 const server=app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
@@ -77,7 +70,7 @@ const server=app.listen(port, () => {
 global.onlineUsers = new Map();       
 const io = socket(server, {
   cors: {
-    origin: ["http://localhost:5173", "https://bond-chatapp.onrender.com"],
+    origin: [ process.env.FRONTEND_URL,"http://localhost:5173", "https://bond-chatapp.onrender.com"],
     methods: ["GET", "POST"],
     credentials: true,
   },
