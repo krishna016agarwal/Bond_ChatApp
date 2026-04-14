@@ -22,11 +22,8 @@ function Slidebar({ setCurrentChat, currentChat }) {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
         const data = await axios.get(
-          `${
-            import.meta.env.MODE === "development"
-              ? `http://localhost:8000/api/allUsers/${currentUser._id}`
-              : import.meta.env.VITE_BACKEND_URL+`/api/allUsers/${currentUser._id}`
-          }`
+          `${   import.meta.env.VITE_BACKEND_URL || `http://localhost:8000`}/api/allUsers/${currentUser._id}`
+          
         );
         setContacts(data.data);
       } else {

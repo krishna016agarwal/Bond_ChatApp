@@ -34,7 +34,7 @@ export const Chat = () => {
       if (currentUser.isAvatarImageSet) {
         try {
           const data = await axios.get(
-            `${import.meta.env.MODE === "development" ? `http://localhost:8000/api/allUsers/${currentUser._id}` : import.meta.env.VITE_BACKEND_URL+`/api/allUsers/${currentUser._id}`}`
+            `${   import.meta.env.VITE_BACKEND_URL || `http://localhost:8000`}/api/allUsers/${currentUser._id}`
           );
           setContacts(data.data);
         } catch (error) {
@@ -50,9 +50,7 @@ export const Chat = () => {
   useEffect(() => {
     if (currentUser) {
       const socketURL =
-        import.meta.env.MODE === "development"
-          ? "http://localhost:8000"
-          : import.meta.env.VITE_BACKEND_URL; // For production URL
+      import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"; // For production URL
       socket.current = io(socketURL);
       socket.current.emit("add-user", currentUser._id);
     }

@@ -47,7 +47,7 @@ navigate("/")
       const { password, username } = state;
 
       const { data } = await axios.post(
-        `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/login` : import.meta.env.VITE_BACKEND_URL+`/api/login` }`
+        `${   import.meta.env.VITE_BACKEND_URL || `http://localhost:8000`}/api/login` 
        , {
         password,
 

@@ -59,7 +59,7 @@ export const Avatar = () => {
       const user = await JSON.parse(localStorage.getItem("user"));
       
       const { data } = await axios.post(
-        `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/avatar/${user._id}` : import.meta.env.VITE_BACKEND_URL+`/api/avatar/${user._id}` }`,
+        `${   import.meta.env.VITE_BACKEND_URL || `http://localhost:8000`}/api/avatar/${user._id}` ,
         {
           image: avatar[selectedAvatar],
         }
