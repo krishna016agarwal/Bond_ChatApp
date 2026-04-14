@@ -14,7 +14,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
     const fetchMessages = async () => {
       if (currentChat) {
         const response = await axios.post(
-          `${import.meta.env.MODE === "development" ? `http://localhost:8000/api/messages/getmsg` : `/api/messages/getmsg`}`,
+          `${import.meta.env.MODE === "development" ? `http://localhost:8000/api/messages/getmsg` : import.meta.env.BACKEND_URL+`/api/messages/getmsg`}`,
           {
             from: currentUser._id,
             to: currentChat._id,
@@ -29,7 +29,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
   // Handle sending a new message
   const handleSendMsg = async (message) => {
     const { data } = await axios.post(
-      `${import.meta.env.MODE === "development" ? `http://localhost:8000/api/messages/addmsg` : `/api/messages/addmsg`}`,
+      `${import.meta.env.MODE === "development" ? `http://localhost:8000/api/messages/addmsg` : import.meta.env.BACKEND_URL+`/api/messages/addmsg`}`,
       {
         from: currentUser._id,
         to: currentChat._id,
