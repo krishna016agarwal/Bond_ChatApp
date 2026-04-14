@@ -32,7 +32,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(
   cors({
-    origin:["http://localhost:5173", "https://bond-chatapp.onrender.com"],
+    origin:["http://localhost:5173", process.env.FRONTEND_URL],
     methods: "GET,POST",
     credentials: true,
   })
