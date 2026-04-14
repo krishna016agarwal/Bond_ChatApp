@@ -59,7 +59,7 @@ const Setting = ({ currentUser }) => {
    
      
         const { data } =  await axios.post(
-          `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/update/${currentUser._id}` : import.meta.env.BACKEND_URL+`/api/update/${currentUser._id}` }`
+          `${import.meta.env.MODE==="development" ? `http://localhost:8000/api/update/${currentUser._id}` : import.meta.env.VITE_BACKEND_URL+`/api/update/${currentUser._id}` }`
           ,
           
            {

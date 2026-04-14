@@ -25,7 +25,7 @@ function Slidebar({ setCurrentChat, currentChat }) {
           `${
             import.meta.env.MODE === "development"
               ? `http://localhost:8000/api/allUsers/${currentUser._id}`
-              : import.meta.env.BACKEND_URL+`/api/allUsers/${currentUser._id}`
+              : import.meta.env.VITE_BACKEND_URL+`/api/allUsers/${currentUser._id}`
           }`
         );
         setContacts(data.data);
