@@ -1,56 +1,15 @@
-import { useState, useEffect } from "react";
-
-import axios from "axios";
+import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { IoMenu } from "react-icons/io5";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import style from "./slidebar.module.css";
 
 import { Contacts } from "./contacts";
 
-function Slidebar({ setCurrentChat, currentChat }) {
+function Slidebar({ setCurrentChat, contacts, groups, currentUser, onGroupUpdated }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [contacts, setContacts] = useState([]);
-  const [isLoadded, setIsLoaded] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
-
-  async function curr() {
-    if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
-        const data = await axios.get(
-          `${   import.meta.env.VITE_BACKEND_URL || `http://localhost:8000`}/api/allUsers/${currentUser._id}`
-          
-        );
-        setContacts(data.data);
-      } else {
-        navigate("/setAvatar");
-      }
-    }
-  }
-
-  useEffect(() => {
-    curr();
-  }, [currentUser]);
-
-  const navigate = useNavigate();
-
-  async function fun() {
-    if (!localStorage.getItem("user")) {
-      navigate("/login");
-    } else {
-      setCurrentUser(await JSON.parse(localStorage.getItem("user")));
-
-      setIsLoaded(true);
-    }
-  }
-
-  useEffect(() => {
-    fun();
-  }, []);
 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
@@ -71,8 +30,10 @@ function Slidebar({ setCurrentChat, currentChat }) {
         <Offcanvas.Header closeButton className={style.header2}> </Offcanvas.Header>
         <Contacts
           contacts={contacts}
+          groups={groups}
           currentUser={currentUser}
           changeChat={handleChatChange}
+          onGroupUpdated={onGroupUpdated}
         ></Contacts>
       </Offcanvas>
     </>

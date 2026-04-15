@@ -3,11 +3,13 @@ import { IoSend } from "react-icons/io5";
 import style from "./chatmessage.module.css";
 import Picker from "emoji-picker-react";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
+import { MdAttachFile } from "react-icons/md";
 
-const Chatinput = ({handleSendMsg}) => {
+const Chatinput = ({handleSendMsg, handleSendFile}) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [message, setMessage] = useState("");
   const emojiPickerRef = useRef(null); // Reference for emoji picker
+  const fileInputRef = useRef(null);
   const handleEmoji = () => {
     setShowEmoji(!showEmoji);
   };
@@ -26,6 +28,25 @@ const Chatinput = ({handleSendMsg}) => {
 const toggleEmojiPicker = () => {
   setShowEmoji((prev) => !prev);
 };
+  const openFilePicker = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelect = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const isImage = file.type.startsWith("image/");
+    const isPdf = file.type === "application/pdf";
+
+    if (!isImage && !isPdf) {
+      event.target.value = "";
+      return;
+    }
+
+    handleSendFile?.(file);
+    event.target.value = "";
+  };
   const sendChat=(e)=>{
   
     e.preventDefault();
@@ -61,6 +82,16 @@ const toggleEmojiPicker = () => {
                         <Picker className={style.emojibox} onEmojiClick={handleEmojiClick} />
                     )}
         </div>
+        <button type="button" className={style.attachBtn} onClick={openFilePicker}>
+          <MdAttachFile />
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*,application/pdf"
+          onChange={handleFileSelect}
+          style={{ display: "none" }}
+        />
       </div>
       <form className={style.form2} onSubmit={(e)=>sendChat(e)}>
         <input

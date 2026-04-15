@@ -1,28 +1,38 @@
 
   
 .container{
-  border-right: 0.1vh solid rgb(139, 139, 139);
+  border-right: 0.1vh solid #e5e7eb;
   display: grid;
   grid-template-rows: 10% 75% 15%;
-  background-color: rgb(255, 255, 255);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
   overflow: hidden;
   .brand {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  
-    justify-content: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0 0.8rem;
     h3 {
-      height: 5rem;
-      color: rgb(26, 218, 26);
-      padding: 20px;
-      margin-top: 18px;
-      /* background-color: #ae98eb; */
+      height: auto;
+      color: #0f9d58;
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
     img {
       height: 2rem;
+    }
+    .createGroupBtn {
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.35rem 0.6rem;
+      background: #0f9d58;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(15, 157, 88, 0.25);
     }
   }
   .contacts{
@@ -30,9 +40,10 @@
     flex-direction: column;
     align-items: center;
     overflow: hidden;
-    gap:0.8rem;
+    gap:0.55rem;
     overflow: auto;
     background-color: rgb(255, 255, 255);
+    padding-bottom: 0.5rem;
   
       
       
@@ -46,20 +57,55 @@
       background-color: #888;
       border-radius: 1rem;
     }
+    .sectionTitle {
+      width: 90%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #6a6a6a;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+    }
     .contact{
-      min-height: 5rem;
-      background-color: rgb(245, 245, 245);
+      min-height: 4.8rem;
+      background: #ffffff;
       width: 90%;
       cursor: pointer;
-      border-radius: 0.2rem;
-      padding: 0.4rem;
-      transition: 0.5s ease-in-out;
+      border-radius: 0.9rem;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid #e5e7eb;
+      transition: 0.2s ease-in-out;
       gap:1rem;
       align-items: center;
       display:flex ;
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      }
       .avatar{
         img{
-          height:3rem
+          height:3rem;
+          width: 3rem;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        &.groupAvatar {
+          height: 3rem;
+          width: 3rem;
+          border-radius: 50%;
+          background: #e6f4ea;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          span {
+            font-weight: 700;
+            color: #0f9d58;
+          }
+          .groupImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
       
       }
@@ -67,18 +113,56 @@
         h3{
           color:rgb(0, 0, 0)
         }
+        p{
+          margin: 0.2rem 0 0;
+          font-size: 0.78rem;
+        }
+      }
+
+      .online {
+        color: #139f2e;
+        font-weight: 600;
+      }
+
+      .offline {
+        color: #7a7a7a;
       }
      
     }
   
    
     .selected{
-      background-color: #befcb7;
+      border-color: #86efac;
+      background: linear-gradient(90deg, #ecfdf5 0%, #dcfce7 100%);
     }
    
   }
+
+  .groupInput {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .memberList {
+    max-height: 16rem;
+    overflow: auto;
+    border: 1px solid #eee;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .memberItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem;
+    font-size: 0.92rem;
+  }
   .current_user{
-    background-color: rgb(247, 247, 247);
+    background-color: #f8fafc;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,6 +171,9 @@
     display: flex;
       img{
         height:4rem;
+        width: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
         max-inline-size: 100%;
       }
       .username{
@@ -108,5 +195,89 @@
       
     }
     
+  }
+
+  @media screen and (max-width: 750px) {
+    grid-template-rows: 8% 77% 15%;
+
+    .brand {
+      justify-content: space-between;
+      padding: 0 0.5rem;
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      .createGroupBtn {
+        padding: 0.28rem 0.5rem;
+        font-size: 0.72rem;
+      }
+    }
+
+    .contacts {
+      gap: 0.45rem;
+
+      .sectionTitle {
+        font-size: 0.7rem;
+      }
+
+      .contact {
+        width: 94%;
+        min-height: 4.4rem;
+        padding: 0.45rem 0.6rem;
+
+        .avatar {
+          img {
+            height: 2.65rem;
+            width: 2.65rem;
+          }
+
+          &.groupAvatar {
+            height: 2.65rem;
+            width: 2.65rem;
+          }
+        }
+
+        .username {
+          h3 {
+            font-size: 0.98rem;
+          }
+
+          p {
+            font-size: 0.72rem;
+          }
+        }
+      }
+    }
+
+    .current_user {
+      padding: 0.5rem 0;
+
+      .avatar img {
+        height: 3rem;
+        width: 3rem;
+      }
+
+      .username h3 {
+        margin-top: 8px;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .brand {
+      h3 {
+        font-size: 1.05rem;
+      }
+
+      .createGroupBtn {
+        padding: 0.25rem 0.45rem;
+      }
+    }
+
+    .contacts .contact {
+      width: 95%;
+    }
   }
 }

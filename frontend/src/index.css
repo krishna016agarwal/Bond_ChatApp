@@ -5,9 +5,11 @@
     
 }
 body{
-    max-height: 100vh;
+    min-height: 100vh;
     max-width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #edf3ef;
 }
 p{
     margin-bottom: 0rem;

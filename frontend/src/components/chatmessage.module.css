@@ -1,25 +1,39 @@
 .main {
   display: grid;
-  grid-template-columns: 5% 95%;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  padding: 0.2rem;
- flex-direction: column;
+  padding: 0.35rem 0.5rem;
+  flex-direction: column;
 
-  padding-bottom: 0.3rem;
-  gap:1rem;
+  padding-bottom: 0.4rem;
+  gap:0.75rem;
   .container{
     display: flex;
  
     align-items: center;
     justify-content: center;
-    gap: 100rem;
+    gap: 0.55rem;
     .emoji{
       position: absolute;
    margin-left: 15px;
       svg{
-        font-size: 2rem;
+        font-size: 1.75rem;
      
         cursor: pointer;
+      }
+    }
+    .attachBtn {
+      position: absolute;
+      right: 0.85rem;
+      border: none;
+      background: transparent;
+      color: #475569;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        font-size: 1.7rem;
       }
     }
     .emojibox{
@@ -31,28 +45,28 @@
    
   }
   form{
-    width:90%;
-    border-radius: 2rem;
-   height: 1px;
+    width:100%;
+    border-radius: 999px;
+    min-height: 3.25rem;
    background-color: rgb(237, 237, 237);
     display: flex;
     border: none;
-    padding: 1.5rem 0rem;
+     padding: 0.35rem 0rem;
     align-items: center;
    flex-direction: row;
    margin-right: 2px;
- min-width: 20%;
+ min-width: 0;
     input {
       width: 100%;
       height: 60%;
-      min-width: 20%;
+      min-width: 0;
       margin-right: 2px;
       background-color: transparent;
       color: black;
       border: none;
     
       padding-left: 1rem;
-      font-size: 1.2rem;
+      font-size: 1rem;
 
       &::selection {
         background-color: #9a86f3;
@@ -62,7 +76,7 @@
       }
     }
       .btn4{
-        padding: 1rem 1.5rem 1rem 3rem;
+        padding: 0.78rem 1rem 0.78rem 1.15rem;
       border-radius: 2rem;
       display: flex;
       justify-content: center;
@@ -101,5 +115,50 @@
   .emojibox{
     width: 300px !important;
     height: 400px !important;
+  }
+
+  .main {
+    padding: 0.25rem 0.3rem;
+
+    form {
+      width: 100%;
+
+      input {
+        font-size: 1rem;
+        padding-left: 0.85rem;
+      }
+    }
+
+    .container {
+      gap: 0.4rem;
+
+      .emoji svg,
+      .attachBtn svg {
+        font-size: 1.5rem;
+      }
+
+      .attachBtn {
+        right: 0.8rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main {
+    gap: 0.5rem;
+
+    form {
+      min-height: 3rem;
+      padding: 0.3rem 0;
+
+      input {
+        font-size: 0.95rem;
+      }
+
+      .btn4 {
+        padding: 0.7rem 0.9rem 0.7rem 1.05rem;
+      }
+    }
   }
 }

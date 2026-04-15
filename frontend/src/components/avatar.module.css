@@ -5,8 +5,10 @@
   gap:3rem;
   width:100vw;
 
-  height:100vh;
+  min-height:100vh;
   align-items: center;
+  padding: 1rem;
+  background: linear-gradient(180deg, #f3f7f5 0%, #edf3ef 100%);
   .loader {
       border: 16px solid #f3f3f3; 
       border-top: 16px solid #0fb967; 
@@ -28,24 +30,28 @@
     
       justify-content: center;
       h1 {
-        height: 5rem;
+        height: auto;
         color: rgb(26, 218, 26);
-        padding: 20px;
+        padding: 0;
      
         text-transform: uppercase;
       }
       img {
-        height: 5rem;
+        height: 4rem;
       }
     }
   .title{
       h1{
-          color:#0fb967
+          color:#0fb967;
+          text-align: center;
+          font-size: clamp(1.2rem, 4vw, 2rem);
       }
   }
   .avatar{
       display: flex;
       gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
       .avatar{
           border:0.4rem solid transparent;
           padding:0.4rem;
@@ -56,7 +62,7 @@
           transition: 0.5s ease-in-out;
 
           img{
-              height: 6rem;
+              height: 5.5rem;
               cursor: pointer;
           }
       }
@@ -81,15 +87,22 @@
       }
   }
 }
-@media screen and(max-width:400px) {
-  .main{
-    background-color: red !important;
-    .title{
-      background-color: #00ee7b !important;
+
+@media screen and (max-width: 600px) {
+  .main {
+    gap: 1.5rem;
+
+    .avatar {
+      gap: 1rem;
+
+      .avatar img {
+        height: 4.9rem;
+      }
     }
-    .avatar{
-      background-color: #00ee7b !important;
+
+    .submit {
+      width: 100%;
+      max-width: 22rem;
     }
   }
-
 }
